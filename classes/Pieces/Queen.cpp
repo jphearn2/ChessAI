@@ -5,16 +5,16 @@ Queen::Queen(){
 
 }
 
-Queen::Queen(int x, int y){
+Queen::Queen(int x, int y, int team){
 
 }
 
-bool Piece::isValid(int x, int y){
+bool Queen::isValid(int x, int y){
 
     return true;
 }
 
-bool Piece::move(int x, int y){
+bool Queen::move(int x, int y){
 
     return true;
 }
