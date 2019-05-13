@@ -8,7 +8,11 @@ Rook::Rook(){
 }
 
 Rook::Rook(int x, int y, int team){
-cout << "test\n";
+    this->x = x;
+    this->y = y;
+    this->team = team;
+    name = "Rook";
+    display = 'R';
 }
 
 bool Rook::isValid(int x, int y){

@@ -6,7 +6,11 @@ Pawn::Pawn(){
 }
 
 Pawn::Pawn(int x, int y, int team){
-
+    this->x = x;
+    this->y = y;
+    this->team = team;
+    name = "Pawn";
+    display = 'P';
 }
 
 bool Pawn::isValid(int x, int y){
