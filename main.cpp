@@ -1,10 +1,5 @@
 #include <iostream>
-#include "classes/Pieces/Queen.cpp"
-#include "classes/Pieces/Pawn.cpp"
-#include "classes/Pieces/Rook.cpp"
-#include "classes/Pieces/Knight.cpp"
-#include "classes/Pieces/Bishop.cpp"
-#include "classes/Pieces/King.cpp"
+#include "classes/Board/Board.cpp"
 
 
 
@@ -14,7 +9,9 @@ using namespace std;
 
 int main(){
     cout << "Greetings Master\n";
-    
+    Board b = Board(0);
+
+    b.printBoard();
 
     return 0;
 }
