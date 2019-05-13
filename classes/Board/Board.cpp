@@ -5,10 +5,12 @@
 #include "../Pieces/Knight.cpp"
 #include "../Pieces/Bishop.cpp"
 #include "../Pieces/King.cpp"
-#include "../Pieces/Piece.h"
+#include "../Pieces/Piece.cpp"
 #include "../Spaces/Space.cpp"
 
 #include <iostream>
+#include <cstdlib>
+#include <cstring>
 
 using namespace std;
 
@@ -17,6 +19,7 @@ Board::Board(){
 }
 
 Board::Board(int AIteam){
+    turnCount = 0;
     this->AIteam = AIteam;
     for(int y = 0; y < 8; y++){
         for(int x = 0; x < 8; x++){
@@ -70,11 +73,11 @@ Board::Board(int AIteam){
 void Board::printBoard(){
     cout << endl << endl;
     for(int i = 0; i < 8; i++){
-        cout << "  -----\t";
+        cout << "  --" << i + 1 << "--\t";
     }
     cout << endl << endl;
     for(int y = 0; y < 8; y++){
-        cout << "|";
+        cout << y + 1 << "|";
         for(int x = 0; x < 8; x++){
             
             if(board[y][x].piece == NULL){
@@ -93,7 +96,81 @@ void Board::printBoard(){
     }
 }
 
-void movePiece(string move){
+void Board::movePiece(char * move){
+    cout << move << endl;
+    int piece = getPiece((int) (move[0] - '0') - 1, (int) (move[1] - '0') - 1, move[2]);
+    // cout << piece << endl;
+    int newX = (int)(move[3] - '0') - 1;
+    int newY = (int)(move[4] - '0') - 1;
+
+    if(isValid(newX, newY, piece)){
+        pieces[piece].move(newX, newY);
+        board[(int) (move[1] - '0') - 1][(int) (move[0] - '0') - 1].piece = NULL;
+        board[newY][newX].piece = &pieces[piece];
+    }
+    
+}
+
+bool Board::isValid(int x, int y, int piece){
+    if(pieces[piece].display == 'P'){
+        if(pieces[piece].x == x 
+        && ((pieces[piece].y - 1 == y && pieces[piece].team == 0) || (pieces[piece].y + 1 == y && pieces[piece].team == 1)) 
+        && spaceEmpty(x, y)){
+            return true;
+        }
+        else if((pieces[piece].x - 1 == x || pieces[piece].x + 1 == x ) 
+            && ((pieces[piece].y - 1 == y && pieces[piece].team == 0) || (pieces[piece].y + 1 == y && pieces[piece].team == 1))
+            && !spaceEmpty(x, y)){
+                return true;
+        }
+        else if(pieces[piece].x == x
+            && ((pieces[piece].y - 2 == y && pieces[piece].y == 6 && pieces[piece].team == 0) || (pieces[piece].y + 2 == y && pieces[piece].y == 1 && pieces[piece].team == 1))
+            && spaceEmpty(x, y)){
+                return true;
+        }
+        else{
+            return false;
+        }
+
+
+    }
+    else if(pieces[piece].display == 'R'){
+
+    }
+    else if(pieces[piece].display == 'N'){
+
+    }
+    else if(pieces[piece].display == 'B'){
+
+    }
+    else if(pieces[piece].display == 'K'){
+
+    }
+    else if(pieces[piece].display == 'Q'){
+
+    }
+    return true;
+}
+
+bool Board::spaceEmpty(int x, int y){
+    for(int i = 0; i < 32; i++){
+        if(pieces[i].x == x && pieces[i].y == y){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int Board::getPiece(int x, int y, char display){
+
+    for(int i = 0; i < 32; i++){
+        if(pieces[i].x == x && pieces[i].y == y && pieces[i].display == display){
+            return i;
+        }
+    }
+
+    return -1;
 
 }
 

@@ -5,11 +5,11 @@
 
 class Bishop : public Piece{
     private:
-        bool isValid(int x, int y);
+        // bool isValid(int x, int y) ;
     public:
         Bishop();
         Bishop(int x, int y, int team);
-        bool move(int x, int y);
+        // bool move(int x, int y) ;
 };
 
 #endif

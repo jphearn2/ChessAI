@@ -13,12 +13,17 @@ Queen::Queen(int x, int y, int team){
     display = 'Q';
 }
 
-bool Queen::isValid(int x, int y){
+// bool Queen::isValid(int x, int y){
 
-    return true;
-}
+//     return true;
+// }
 
-bool Queen::move(int x, int y){
+// bool Queen::move(int x, int y){
+//     if(isValid(x, y)){
+//         this->x = x;
+//         this->y = y;
+//         return true;
 
-    return true;
-}
+//     }
+//     return false;
+// }

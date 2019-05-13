@@ -5,11 +5,11 @@
 
 class Knight : public Piece{
     private:
-        bool isValid(int x, int y);
+        // bool isValid(int x, int y) ;
     public:
         Knight();
         Knight(int x, int y, int team);
-        bool move(int x, int y);
+        // bool move(int x, int y) ;
 };
 
 #endif

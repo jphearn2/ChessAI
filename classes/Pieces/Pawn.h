@@ -5,11 +5,12 @@
 
 class Pawn : public Piece{
     private:
-        bool isValid(int x, int y);
+        // bool isValid(int x, int y) ;
     public:
         Pawn();
         Pawn(int x, int y, int team);
-        bool move(int x, int y);
+        void move(int x, int y) ;
+        
 };
 
 #endif

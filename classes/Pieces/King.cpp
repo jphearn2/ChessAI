@@ -15,12 +15,17 @@ King::King(int x, int y, int team){
 
 }
 
-bool King::isValid(int x, int y){
+// bool King::isValid(int x, int y){
 
-    return true;
-}
+//     return true;
+// }
 
-bool King::move(int x, int y){
+// bool King::move(int x, int y){
+//     if(isValid(x, y)){
+//         this->x = x;
+//         this->y = y;
+//         return true;
 
-    return true;
-}
+//     }
+//     return false;
+// }

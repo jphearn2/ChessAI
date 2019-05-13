@@ -7,6 +7,10 @@
 using namespace std;
 
 class Board{
+    private:
+        int turnCount;
+        int getPiece(int x, int y, char display);
+        bool isValid(int x, int y, int piece);
     public:
     int AIteam;
     Space board[8][8];
@@ -16,7 +20,8 @@ class Board{
     Board(int AIteam);
 
     void printBoard();
-    void movePiece(string move);
+    void movePiece(char * move);
+    bool spaceEmpty(int x, int y);
 };
 
 #endif

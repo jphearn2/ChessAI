@@ -14,12 +14,17 @@ Knight::Knight(int x, int y, int team){
     display = 'N';
 }
 
-bool Knight::isValid(int x, int y){
+// bool Knight::isValid(int x, int y){
 
-    return true;
-}
+//     return true;
+// }
 
-bool Knight::move(int x, int y){
+// bool Knight::move(int x, int y){
+//     if(isValid(x, y)){
+//         this->x = x;
+//         this->y = y;
+//         return true;
 
-    return true;
-}
+//     }
+//     return false;
+// }

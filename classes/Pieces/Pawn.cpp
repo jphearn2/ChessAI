@@ -13,12 +13,18 @@ Pawn::Pawn(int x, int y, int team){
     display = 'P';
 }
 
-bool Pawn::isValid(int x, int y){
+// bool Pawn::isValid(int x, int y){
 
-    return true;
-}
+//     return true;
+// }
 
-bool Pawn::move(int x, int y){
+// bool Pawn::move(int x, int y) {
+//     cout << "test\n";
+//     if(isValid(x, y)){
+//         this->x = x;
+//         this->y = y;
+//         return true;
 
-    return true;
-}
+//     }
+//     return false;
+// }

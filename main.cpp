@@ -12,6 +12,9 @@ int main(){
     Board b = Board(0);
 
     b.printBoard();
-
+    char * test = "47P46";
+    b.movePiece(test);
+    b.printBoard();
+    
     return 0;
 }

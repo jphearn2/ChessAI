@@ -6,18 +6,14 @@ using namespace std;
 
 class Piece{
     private:
-        virtual bool isValid(int x, int y){
-            return false;
-        }
+        // virtual bool isValid(int x, int y);
     public:
         int team;
         char display;
         string name;
         int x;
         int y;
-        virtual bool move(int x, int y){
-            return false;
-        }
+        void move(int x, int y);
 
         
 };

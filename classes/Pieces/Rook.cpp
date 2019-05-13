@@ -15,12 +15,17 @@ Rook::Rook(int x, int y, int team){
     display = 'R';
 }
 
-bool Rook::isValid(int x, int y){
+// bool Rook::isValid(int x, int y){
 
-    return true;
-}
+//     return true;
+// }
 
-bool Rook::move(int x, int y){
+// bool Rook::move(int x, int y){
+//     if(isValid(x, y)){
+//         this->x = x;
+//         this->y = y;
+//         return true;
 
-    return true;
-}
+//     }
+//     return false;
+// }
