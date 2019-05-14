@@ -12,7 +12,15 @@ int main(){
     Board b = Board(0);
 
     b.printBoard();
-    char * test = "47P46";
+    char * test = "17P15";
+    b.movePiece(test);
+    test = "15P14";
+    b.movePiece(test);
+    test = "14P13";
+    b.movePiece(test);
+    test = "18R14";
+    b.movePiece(test);
+    test = "14R84";
     b.movePiece(test);
     b.printBoard();
     

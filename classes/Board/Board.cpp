@@ -7,10 +7,12 @@
 #include "../Pieces/King.cpp"
 #include "../Pieces/Piece.cpp"
 #include "../Spaces/Space.cpp"
+#include "../../globals/globals.cpp"
 
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
+#include <cmath>
 
 using namespace std;
 
@@ -135,10 +137,15 @@ bool Board::isValid(int x, int y, int piece){
 
     }
     else if(pieces[piece].display == 'R'){
-
+        if(pieces[piece].x == x || pieces[piece].y == y){
+            if(pathEmptyRook(pieces[piece].x, pieces[piece].y, x, y)){
+                return true;
+            }
+        }
+        return false;
     }
     else if(pieces[piece].display == 'N'){
-
+        
     }
     else if(pieces[piece].display == 'B'){
 
@@ -150,6 +157,31 @@ bool Board::isValid(int x, int y, int piece){
 
     }
     return true;
+}
+
+bool Board::pathEmptyRook(int startX, int startY, int endX, int endY){
+    cout << startX << startY << endX << endY << endl;
+    if(startX == endX){
+        for(int i = 1; i < abs(startY - endY); i++){
+            int midY = startY - Globals::signOf(startY - endY)*i;
+            cout << midY << endl;
+            if(!spaceEmpty(startX, midY)){
+                return false;
+            }
+        }
+        return true;
+    }
+    else if(startY == endY){
+        for(int i = 1; i < abs(startX - endX); i++){
+            int midX = startY - Globals::signOf(startX - endX)*i;
+            cout << midX << endl;
+            if(!spaceEmpty(startX, midX)){
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
 }
 
 bool Board::spaceEmpty(int x, int y){

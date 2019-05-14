@@ -22,6 +22,7 @@ class Board{
     void printBoard();
     void movePiece(char * move);
     bool spaceEmpty(int x, int y);
+    bool pathEmptyRook(int startX, int startY, int endX,int endY);
 };
 
 #endif
