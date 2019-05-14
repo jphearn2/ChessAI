@@ -9,8 +9,9 @@ using namespace std;
 class Board{
     private:
         int turnCount;
-        int getPiece(int x, int y, char display);
+        int getPieceInput(int x, int y, char display);
         bool isValid(int x, int y, int piece);
+        int getPieceAt(int x, int y);
     public:
     int AIteam;
     Space board[8][8];
@@ -23,6 +24,8 @@ class Board{
     void movePiece(char * move);
     bool spaceEmpty(int x, int y);
     bool pathEmptyRook(int startX, int startY, int endX,int endY);
+    bool pathEmptyBishop(int startX, int startY, int endX,int endY);
+
 };
 
 #endif

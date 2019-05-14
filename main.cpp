@@ -8,21 +8,22 @@
 using namespace std;
 
 int main(){
+    string input;
+    char toMove [10];
     cout << "Greetings Master\n";
+    cout << "don't forget to load up the chess board\n";
     Board b = Board(0);
 
     b.printBoard();
-    char * test = "17P15";
-    b.movePiece(test);
-    test = "15P14";
-    b.movePiece(test);
-    test = "14P13";
-    b.movePiece(test);
-    test = "18R14";
-    b.movePiece(test);
-    test = "14R84";
-    b.movePiece(test);
-    b.printBoard();
+    cin >> input;
+    while(input != "q"){
+        // cout << input << endl;
+        system("clear");
+        strcpy(toMove, input.c_str());
+        b.movePiece(toMove);
+        b.printBoard();
+        cin >> input;
+    }
     
     return 0;
 }
