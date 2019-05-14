@@ -108,24 +108,43 @@ void Board::movePiece(char * move){
         cout << "bad input\n";
         return;
     }
-    int piece = getPieceInput((int) (move[0] - '0') - 1, (int) (move[1] - '0') - 1, move[2]);
+    int startX = (int) (move[0] - '0') - 1;
+    int startY = (int) (move[1] - '0') - 1;
+    int piece = getPieceInput(startX, startY, move[2]);
     // cout << piece << endl;
     int newX = (int)(move[3] - '0') - 1;
     int newY = (int)(move[4] - '0') - 1;
+    int pieceTaken = getPieceAt(newX, newY);
     if(pieces[piece].team != turnCount){
         cout << "wrong piece to move\n";
         return;
     }
     if(isValid(newX, newY, piece)){
+
+
         cout << "is valid\n";
         if(!spaceEmpty(newX, newY)){
-            pieces[getPieceAt(newX, newY)].x = -1;
-            pieces[getPieceAt(newX, newY)].y = -1;
+            pieces[pieceTaken].x = -1;
+            pieces[pieceTaken].y = -1;
             
         }
         pieces[piece].move(newX, newY);
-        board[(int) (move[1] - '0') - 1][(int) (move[0] - '0') - 1].piece = NULL;
+        board[startX][startY].piece = NULL;
         board[newY][newX].piece = &pieces[piece];
+        if(createsCheck(turnCount)){
+            pieces[piece].x = startX;
+            pieces[piece].y = startY;
+            board[startX][startY].piece = &pieces[piece];
+            board[newY][newX].piece = NULL;
+
+            if(pieceTaken != -1){
+                pieces[pieceTaken].x = newX;
+                pieces[pieceTaken].y = newY;
+                board[newY][newX].piece = &pieces[pieceTaken];
+
+            }            
+
+        }
         if(turnCount == 0){
             turnCount = 1;
         }
@@ -134,6 +153,28 @@ void Board::movePiece(char * move){
         }
     }
     
+}
+
+bool Board::createsCheck(int onTeam){
+    int king = findKing(onTeam);
+
+    for(int i = 0; i < 32; i++){
+        if(pieces[i].team != onTeam && isValid(pieces[king].x, pieces[king].y, i)){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int Board::findKing(int forTeam){
+    for(int i = 0; i < 32; i++){
+        if(pieces[i].display == 'K' && pieces[i].team == forTeam){
+            return i;
+        }
+    }
+    cout << "should never get here\n";
+    return -1;
 }
 
 bool Board::isValid(int x, int y, int piece){

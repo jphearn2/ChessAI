@@ -12,6 +12,8 @@ class Board{
         int getPieceInput(int x, int y, char display);
         bool isValid(int x, int y, int piece);
         int getPieceAt(int x, int y);
+        bool createsCheck(int onTeam);
+        int findKing(int forTeam);
     public:
     int AIteam;
     Space board[8][8];
