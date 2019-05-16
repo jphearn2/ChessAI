@@ -27,6 +27,7 @@ class Board{
         bool pathEmptyRook(int startX, int startY, int endX,int endY);
         bool pathEmptyBishop(int startX, int startY, int endX,int endY);
         bool createsCheck(int onTeam);
+        bool checkMate(int onTeam);
 
 };
 

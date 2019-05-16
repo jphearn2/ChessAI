@@ -144,7 +144,10 @@ void Board::movePiece(char * move){
                 pieces[pieceTaken].y = newY;
                 board[newY][newX].piece = &pieces[pieceTaken];
 
-            }            
+            }          
+            if(checkMate(turnCount)){
+                cout << "CHEKCMATE!!\n";
+            }  
             return;
         }
         if(turnCount == 0){
@@ -155,6 +158,9 @@ void Board::movePiece(char * move){
         }
         if(createsCheck(turnCount)){
             cout << "you put your opponent in check\n";
+            if(checkMate(turnCount)){
+                cout << "your put your opponent in checkmate!!\n";
+            }
         }
     }
     
@@ -173,6 +179,63 @@ bool Board::createsCheck(int onTeam){
     }
 
     return false;
+}
+
+bool Board::checkMate(int onTeam){
+    // for each piece on team
+    for(int i = 0; i < 32; i++){
+        // for each possible square of movement
+        if(pieces[i].team == onTeam){
+            // cout << "test\n";
+            for(int y = 0; y < 8; y++){
+                for(int x = 0; x < 8; x++){
+                    // if stops check return false
+                    
+                    // if(pieces[i].team == onTeam){
+                        if(isValid(x, y, i)){
+                            // cout << pieces[i].toString();
+                            // cout << "moving to " << x << ", " << y << endl;
+                            int startX = pieces[i].x;
+                            int startY = pieces[i].y;
+                            int pieceTaken = getPieceAt(x, y);
+
+                            pieces[i].move(x, y);
+                            board[startY][startX].piece = NULL;
+                            board[y][x].piece = &pieces[i];
+
+                            if(!createsCheck(onTeam)){
+                                pieces[i].x = startX;
+                                pieces[i].y = startY;
+                                board[startY][startX].piece = &pieces[i];
+                                board[y][x].piece = NULL;
+
+                                if(pieceTaken != -1){
+                                    pieces[pieceTaken].x = x;
+                                    pieces[pieceTaken].y = y;
+                                    board[y][x].piece = &pieces[pieceTaken];
+                                }
+                                return false;
+                            }
+
+                            pieces[i].x = startX;
+                            pieces[i].y = startY;
+                            board[startY][startX].piece = &pieces[i];
+                            board[y][x].piece = NULL;
+
+                            if(pieceTaken != -1){
+                                pieces[pieceTaken].x = x;
+                                pieces[pieceTaken].y = y;
+                                board[y][x].piece = &pieces[pieceTaken];
+                            }
+                        }
+                }
+            }
+        }
+
+       
+
+    }
+    return true;
 }
 
 int Board::findKing(int forTeam){
@@ -268,6 +331,7 @@ bool Board::isValid(int x, int y, int piece){
 
     }
     else if(pieces[piece].display == 'Q'){
+        // cout << "trying to move to " << x+1 << ", " << y+1 << endl;
         if(pieces[piece].x == x || pieces[piece].y == y){
             if(pathEmptyRook(pieces[piece].x, pieces[piece].y, x, y)){
                 if(!spaceEmpty(x, y) && pieces[piece].team == pieces[getPieceAt(x, y)].team){
