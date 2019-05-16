@@ -327,12 +327,12 @@ bool Board::pathEmptyRook(int startX, int startY, int endX, int endY){
 }
 
 bool Board::pathEmptyBishop(int startX, int startY, int endX, int endY){
-    cout << startX+1 << startY+1 << endX+1 << endY+1 << endl;
+    // cout << startX+1 << startY+1 << endX+1 << endY+1 << endl;
     if(abs(startX - endX) == abs(startY - endY)){
         for(int i = 1; i <= abs(startX - endX) - 1; i++){
             int midX = startX - Globals::signOf(startX - endX)*i;
             int midY = startY - Globals::signOf(startY - endY)*i;
-            cout << "checking " << midX+1 << ", " << midY+1 << endl;
+            // cout << "checking " << midX+1 << ", " << midY+1 << endl;
             if(!spaceEmpty(midX, midY)){
                 return false;
             }
