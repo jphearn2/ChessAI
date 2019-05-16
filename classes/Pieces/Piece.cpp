@@ -1,8 +1,22 @@
 #include "Piece.h"
+#include <string>
 
-void Piece::move(int x, int y){
+using namespace std;
+
+void Piece::move(int x, int y)
+{
         this->x = x;
         this->y = y;
+}
+
+string Piece::toString()
+{
+        string toPrint ="";
+        toPrint = toPrint + display + '\n';
+        toPrint = toPrint + to_string(x) + ", " + to_string(y) + '\n';
+        toPrint = toPrint + to_string(team) + "\n\n";
+
+        return toPrint;
 }
 
 // not useable, needs information about the board that pieces don't have

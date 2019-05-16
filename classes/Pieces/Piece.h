@@ -14,6 +14,7 @@ class Piece{
         int x;
         int y;
         void move(int x, int y);
+        string toString();
 
         
 };

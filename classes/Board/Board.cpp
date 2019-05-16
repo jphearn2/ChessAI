@@ -100,6 +100,7 @@ void Board::printBoard(){
 
 void Board::movePiece(char * move){
     cout << turnCount << endl;
+    
     cout << move << endl;
     if((int) (move[0] - '0') > 8 || (int) (move[0] - '0') < 1 
     || (int) (move[1] - '0') > 8 || (int) (move[1] - '0') < 1
@@ -116,7 +117,7 @@ void Board::movePiece(char * move){
     int newY = (int)(move[4] - '0') - 1;
     int pieceTaken = getPieceAt(newX, newY);
     if(pieces[piece].team != turnCount){
-        cout << "wrong piece to move\n";
+        cout << "wrong team to move\n";
         return;
     }
     if(isValid(newX, newY, piece)){
@@ -129,12 +130,13 @@ void Board::movePiece(char * move){
             
         }
         pieces[piece].move(newX, newY);
-        board[startX][startY].piece = NULL;
+        board[startY][startX].piece = NULL;
         board[newY][newX].piece = &pieces[piece];
         if(createsCheck(turnCount)){
+            cout << "moving there puts yourself in check\n";
             pieces[piece].x = startX;
             pieces[piece].y = startY;
-            board[startX][startY].piece = &pieces[piece];
+            board[startY][startX].piece = &pieces[piece];
             board[newY][newX].piece = NULL;
 
             if(pieceTaken != -1){
@@ -143,7 +145,7 @@ void Board::movePiece(char * move){
                 board[newY][newX].piece = &pieces[pieceTaken];
 
             }            
-
+            return;
         }
         if(turnCount == 0){
             turnCount = 1;
@@ -151,16 +153,22 @@ void Board::movePiece(char * move){
         else {
             turnCount = 0;
         }
+        if(createsCheck(turnCount)){
+            cout << "you put your opponent in check\n";
+        }
     }
     
 }
 
 bool Board::createsCheck(int onTeam){
     int king = findKing(onTeam);
-
+    // cout << pieces[king].toString();
     for(int i = 0; i < 32; i++){
-        if(pieces[i].team != onTeam && isValid(pieces[king].x, pieces[king].y, i)){
-            return true;
+        if(pieces[i].team != onTeam){
+            // cout << pieces[i].toString() << endl;
+            if(isValid(pieces[king].x, pieces[king].y, i)){
+                return true;
+            }
         }
     }
 
@@ -270,22 +278,25 @@ bool Board::isValid(int x, int y, int piece){
         }
         else if(abs(pieces[piece].x - x) == abs(pieces[piece].y - y)){
             // cout << "test\n";
+            // cout << pieces[piece].toString() << pieces[getPieceAt(x, y)].toString();
             if(pathEmptyBishop(pieces[piece].x, pieces[piece].y, x, y)){
                 if(!spaceEmpty(x, y) && pieces[piece].team == pieces[getPieceAt(x, y)].team){
+                    // cout << "invalid queen move\n";
                     return false;
                 }
+                // cout << "valid queen move\n";
                 return true;
             }
         }
         return false;
     }
-    return true;
+    return false;
 }
 
 bool Board::pathEmptyRook(int startX, int startY, int endX, int endY){
     // cout << startX << startY << endX << endY << endl;
     if(startX == endX){
-        for(int i = 1; i < abs(startY - endY) - 1; i++){
+        for(int i = 1; i <= abs(startY - endY) - 1; i++){
             int midY = startY - Globals::signOf(startY - endY)*i;
             // cout << midY << endl;
             if(!spaceEmpty(startX, midY)){
@@ -293,7 +304,7 @@ bool Board::pathEmptyRook(int startX, int startY, int endX, int endY){
             }
         }
         if(!spaceEmpty(endX, endY) 
-        && pieces[getPieceAt(endX, endY)].team != pieces[getPieceAt(startX, startY)].team){
+        && pieces[getPieceAt(endX, endY)].team == pieces[getPieceAt(startX, startY)].team){
             return false;
         }
         return true;
@@ -307,7 +318,7 @@ bool Board::pathEmptyRook(int startX, int startY, int endX, int endY){
             }
         }
         if(!spaceEmpty(endX, endY) 
-        && pieces[getPieceAt(endX, endY)].team != pieces[getPieceAt(startX, startY)].team){
+        && pieces[getPieceAt(endX, endY)].team == pieces[getPieceAt(startX, startY)].team){
             return false;
         }
         return true;
@@ -316,18 +327,18 @@ bool Board::pathEmptyRook(int startX, int startY, int endX, int endY){
 }
 
 bool Board::pathEmptyBishop(int startX, int startY, int endX, int endY){
-    // cout << startX << startY << endX << endY << endl;
+    cout << startX+1 << startY+1 << endX+1 << endY+1 << endl;
     if(abs(startX - endX) == abs(startY - endY)){
-        for(int i = 1; i < abs(startX - endX) - 1; i++){
+        for(int i = 1; i <= abs(startX - endX) - 1; i++){
             int midX = startX - Globals::signOf(startX - endX)*i;
             int midY = startY - Globals::signOf(startY - endY)*i;
-
+            cout << "checking " << midX+1 << ", " << midY+1 << endl;
             if(!spaceEmpty(midX, midY)){
                 return false;
             }
         }
         if(!spaceEmpty(endX, endY) 
-        && pieces[getPieceAt(endX, endY)].team != pieces[getPieceAt(startX, startY)].team){
+        && pieces[getPieceAt(endX, endY)].team == pieces[getPieceAt(startX, startY)].team){
             return false;
         }
         return true;

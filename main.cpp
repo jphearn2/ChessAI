@@ -22,6 +22,9 @@ int main(){
         strcpy(toMove, input.c_str());
         b.movePiece(toMove);
         b.printBoard();
+        if(b.createsCheck(b.turnCount)){
+            cout << "you're in check\n";
+            }
         cin >> input;
     }
     
