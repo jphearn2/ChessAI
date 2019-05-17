@@ -18,7 +18,6 @@ class Board{
         Piece pieces[32];
 
         Board();
-        Board(int AIteam);
         int turnCount;
 
         void printBoard();

@@ -12,7 +12,7 @@ int main(){
     char toMove [10];
     cout << "Greetings Master\n";
     cout << "don't forget to load up the chess board\n";
-    Board b = Board(0);
+    Board b = Board();
 
     b.printBoard();
     cin >> input;

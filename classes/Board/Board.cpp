@@ -17,10 +17,6 @@
 using namespace std;
 
 Board::Board(){
-    
-}
-
-Board::Board(int AIteam){
     turnCount = 0;
     this->AIteam = AIteam;
     for(int y = 0; y < 8; y++){
